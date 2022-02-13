@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-if os.path.isfile('env.py'):
+if os.path.exists('env.py'):
     import env
 
 
@@ -91,20 +91,9 @@ WSGI_APPLICATION = 'codestar.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('postgres://gakpgshpqfsbkg:0900f830d56d8c85bcef669b99c2080bec7fbfa059524636acb47aa2d60c0a09@ec2-52-208-221-89.eu-west-1.compute.amazonaws.com:5432/d93lfa2058n0p6'))
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
 
-if os.environ.get("DATABASE_URL"):
-    DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("postgres://gakpgshpqfsbkg:0900f830d56d8c85bcef669b99c2080bec7fbfa059524636acb47aa2d60c0a09@ec2-52-208-221-89.eu-west-1.compute.amazonaws.com:5432/d93lfa2058n0p6"))
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        }
-    }
 
 
 # Password validation
